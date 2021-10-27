@@ -1,0 +1,11 @@
+attrs
+black
+rope
+mypy
+returns
+flask-restx
+pydantic
+dependency-injector
+toolz
+pytest
+pytest-cov
