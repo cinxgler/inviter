@@ -1,0 +1,7 @@
+[GLOBAL]
+pants_version = "2.7.0"
+backend_packages = ["pants.backend.python"]
+pants_ignore.add = ["venv/"]
+
+[anonymous-telemetry]
+enabled = false
