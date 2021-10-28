@@ -1,6 +1,6 @@
 [GLOBAL]
 pants_version = "2.7.0"
-backend_packages = ["pants.backend.python"]
+backend_packages = ["pants.backend.python", "pants.backend.python.lint.black", "pants.backend.python.lint.isort", ]
 pants_ignore.add = ["venv/"]
 
 [anonymous-telemetry]
