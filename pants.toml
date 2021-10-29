@@ -1,7 +1,11 @@
 [GLOBAL]
 pants_version = "2.7.0"
-backend_packages = ["pants.backend.python", "pants.backend.python.lint.black", "pants.backend.python.lint.isort", ]
+backend_packages = ["pants.backend.python", "pants.backend.python.lint.black", "pants.backend.python.lint.isort", "pants.backend.python.typecheck.mypy"]
 pants_ignore.add = ["venv/"]
 
 [anonymous-telemetry]
 enabled = false
+
+[mypy]
+lockfile = "mypy_lockfile.txt"
+extra_requirements.add = ["python>=3.6.1", "returns==0.17.0", "pydantic==1.8.2"]

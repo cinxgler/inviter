@@ -6,3 +6,5 @@ pex_binary(
 python_library(
     name="root",
 )
+
+python_requirements()
