@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+import di_containers
 from dependency_injector.wiring import Provide
 from flask import Flask
 from flask_restx import Api, Resource, fields
@@ -8,7 +9,6 @@ from returns.io import IOResult
 from returns.pipeline import is_successful
 from toolz.itertoolz import groupby
 
-import di_containers
 from inviter.io import FailedInvite, Invite
 from inviter.repository import PersonRepository
 from inviter.usecase import InviteAdultsToBar

@@ -1,13 +1,13 @@
 import cmd
 from datetime import datetime
 
+import di_containers
 from dependency_injector.wiring import Provide
 from returns.io import IOResult
 from returns.pipeline import is_successful
 from returns.result import safe
 from toolz.itertoolz import groupby
 
-import di_containers
 import webapi
 from inviter.io import FailedInvite, Invite
 from inviter.repository import PersonRepository
@@ -26,9 +26,11 @@ send_invite: IOResult[Invite, FailedInvite] = Provide[
 def parse_time(time_to_validate: str) -> datetime:
     return datetime.strptime(time_to_validate, DATE_FORMAT)
 
+
 # App
 class CliApp(cmd.Cmd):
     """Invitations Management App"""
+
     def do_webserver(self, debug):
         """Runs a webserver"""
         webapi.app.run(debug=debug)
@@ -61,6 +63,7 @@ class CliApp(cmd.Cmd):
             else:
                 msg = f"Failed Count: {count}"
             print(msg)
+
 
 if __name__ == "__main__":
     import sys

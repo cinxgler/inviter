@@ -9,3 +9,6 @@ enabled = false
 [mypy]
 lockfile = "mypy_lockfile.txt"
 extra_requirements.add = ["python>=3.6.1", "returns==0.17.0", "pydantic==1.8.2"]
+
+[isort]
+args=["--profile=black"]
