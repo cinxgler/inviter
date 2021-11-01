@@ -22,22 +22,22 @@ The `inviter` package has the following modules:
 
 - Create virtual environment and install dependencies
 
-    virtualenv -p python3.8 venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+        virtualenv -p python3.8 venv
+        source venv/bin/activate
+        pip install -r requirements.txt
 
 - Run command line interface
 
-    python main.py invite_adults "1978-09-15 10:00"
+        python main.py invite_adults "1978-09-15 10:00"
 
 - Run web api
 
-    python main.py webserver
+        python main.py webserver
 
 - You can run the test suite using and get the coverage HTML report `htmlcov` folder
 
-    pytest
+        pytest
 
 - You can check the typing using
 
-    mypy
+        mypy
