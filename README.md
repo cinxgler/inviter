@@ -22,25 +22,25 @@ The `inviter` package has the following modules:
 
 - Create virtual environment and install dependencies
 
-    virtualenv -p python3.8 venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+        virtualenv -p python3.8 venv
+        source venv/bin/activate
+        pip install -r requirements.txt
 
 - Run command line interface
 
-    python main.py invite_adults "1978-09-15 10:00"
+        python main.py invite_adults "1978-09-15 10:00"
 
 - Run web api
 
-    python main.py webserver
+        python main.py webserver
 
 - You can run the test suite using and get the coverage HTML report `htmlcov` folder
 
-    pytest
+        pytest
 
 - You can check the typing using
 
-    mypy
+        mypy
 
 ## Pantsbuild commands
 
@@ -48,16 +48,17 @@ This repository has [pantsbuild](https://www.pantsbuild.org/docs/getting-started
 
 To bootstrap the tool in your computer you just need to have internet connection and run
 
-        ./pants
+         ./pants
 
 Later you can run the following commands:
 
 - You can run the test suite using and get the coverage HTML report `htmlcov` folder
 
-    ./pants test ::
+        ./pants test ::
 
 - You can run linter and formatters running:
 
-    ./pants lint ::
+        ./pants lint ::
 
 (WIP) The `typecheck` goal is not currently working due an issue with dependencies.
+
