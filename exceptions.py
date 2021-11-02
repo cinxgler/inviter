@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ExceptionWithCode(Exception):
     """Creates an exception that receives a Error Code and Exception message with placeholders
 

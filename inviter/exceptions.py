@@ -33,5 +33,6 @@ class ExceptionWithCode(Exception):
 
         super().__init__(msg)
 
+
 class InvariantError(ExceptionWithCode):
     pass

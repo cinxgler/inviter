@@ -1,6 +1,6 @@
 import random
-from enum import Enum
 from datetime import datetime
+from enum import Enum
 from typing import Callable, List, Union, final
 
 from attr import dataclass

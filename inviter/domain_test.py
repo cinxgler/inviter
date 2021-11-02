@@ -1,11 +1,11 @@
 import pytest
 
 from inviter.domain import (
+    _ADULT_AGE_LOWER_LIMIT,
+    _AGE_MAX_LIMIT,
     Adult,
     Kid,
     build_person,
-    _ADULT_AGE_LOWER_LIMIT,
-    _AGE_MAX_LIMIT,
 )
 from inviter.exceptions import InvariantError
 

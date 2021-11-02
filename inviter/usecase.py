@@ -8,8 +8,8 @@ from returns.io import IOResult, IOResultE
 from returns.pipeline import flow
 from returns.unsafe import unsafe_perform_io
 
-from inviter.io import FailedInvite, Invite, send_invite
 from inviter.domain import Adult, Person
+from inviter.io import FailedInvite, Invite, send_invite
 
 __all__ = ["InviteAdultsToBar"]
 
@@ -47,7 +47,7 @@ class InviteAdultsToBar:
 
         send_invites = flow(
             people.value_or([]),
-            #tap(print),
+            # tap(print),
             unsafe_perform_io,
             partial(filter, is_adult),
             partial(map, build_bar_invite_),

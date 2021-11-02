@@ -1,5 +1,5 @@
-import random
 import json
+import random
 from typing import List
 
 from returns.io import impure_safe
