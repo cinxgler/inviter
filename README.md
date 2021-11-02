@@ -41,3 +41,23 @@ The `inviter` package has the following modules:
 - You can check the typing using
 
     mypy
+
+## Pantsbuild commands
+
+This repository has [pantsbuild](https://www.pantsbuild.org/docs/getting-started) configured to manage a mono repository
+
+To bootstrap the tool in your computer you just need to have internet connection and run
+
+        ./pants
+
+Later you can run the following commands:
+
+- You can run the test suite using and get the coverage HTML report `htmlcov` folder
+
+    ./pants test ::
+
+- You can run linter and formatters running:
+
+    ./pants lint ::
+
+(WIP) The `typecheck` goal is not currently working due an issue with dependencies.
