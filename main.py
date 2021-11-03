@@ -70,6 +70,8 @@ if __name__ == "__main__":
 
     repositories = di_containers.Repositories()
     repositories.wire(modules=[sys.modules[__name__], webapi])
+    io_adapters = di_containers.IoAdapters()
+    io_adapters.wire(modules=[sys.modules[__name__], webapi])
 
     if len(sys.argv) > 1:
         CliApp().onecmd(" ".join(sys.argv[1:]))

@@ -9,7 +9,7 @@ from returns.pipeline import flow
 from returns.unsafe import unsafe_perform_io
 
 from inviter.domain import Adult, Person
-from inviter.io import FailedInvite, Invite, send_invite
+from inviter.io import FailedInvite, Invite
 
 __all__ = ["InviteAdultsToBar"]
 
@@ -44,7 +44,6 @@ class InviteAdultsToBar:
         is_adult = lambda x: isinstance(x, Adult)
 
         people = self._fetch_people()
-
         send_invites = flow(
             people.value_or([]),
             # tap(print),
@@ -53,5 +52,4 @@ class InviteAdultsToBar:
             partial(map, build_bar_invite_),
             partial(map, self._send_invite),
         )
-
         return list([r for r in send_invites])

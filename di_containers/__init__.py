@@ -1,6 +1,6 @@
 from dependency_injector import containers, providers
 
-from inviter.io import send_invite
+from inviter.io import SendInvite
 from inviter.repository import PersonRepositoryJson, PersonRepository
 
 
@@ -11,7 +11,7 @@ class TestRepositories(containers.DeclarativeContainer):
     Person = providers.Singleton(PersonRepository)
 
 class IoAdapters(containers.DeclarativeContainer):
-    send_invite = providers.Callable(send_invite)
+    send_invite = providers.Singleton(SendInvite)
 
 class TestIoAdapters(containers.DeclarativeContainer):
-    send_invite = providers.Callable(send_invite)
+    send_invite = providers.Singleton(SendInvite)

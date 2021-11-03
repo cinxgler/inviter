@@ -25,13 +25,13 @@ class FailedInvite:
     invite: Invite
     error_code: SendInviteErrorCodes
 
-
-def send_invite(invite: Invite) -> IOResult[Invite, FailedInvite]:
-    if random.choice([0, 1]):
-        return IOFailure(
-            FailedInvite(
-                invite=invite, error_code=SendInviteErrorCodes.CONNECTION_TIMEOUT
+class SendInvite:
+    def __call__(self, invite: Invite) -> IOResult[Invite, FailedInvite]:
+        if random.choice([0, 1]):
+            return IOFailure(
+                FailedInvite(
+                    invite=invite, error_code=SendInviteErrorCodes.CONNECTION_TIMEOUT
+                )
             )
-        )
-    print("Sending invite ...", invite.message)
-    return IOSuccess(invite)
+        print("Sending invite ...", invite.message)
+        return IOSuccess(invite)
