@@ -52,4 +52,4 @@ class InviteAdultsToBar:
             partial(map, build_bar_invite_),
             partial(map, self._send_invite),
         )
-        return list([r for r in send_invites])
+        return list(r for r in send_invites)

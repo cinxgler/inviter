@@ -25,6 +25,7 @@ class FailedInvite:
     invite: Invite
     error_code: SendInviteErrorCodes
 
+
 class SendInvite:
     def __call__(self, invite: Invite) -> IOResult[Invite, FailedInvite]:
         if random.choice([0, 1]):
