@@ -31,16 +31,21 @@ def build_bar_invite(invitation_datetime: datetime, person: Adult) -> BarInvite:
     return BarInvite(person=person, message=msg, identifier=person.name)
 
 
-@final
 @dataclass(frozen=True)
 class InviteAdultsToBar:
+    invitation_date: datetime
+
+
+@final
+@dataclass(frozen=True)
+class InviteAdultsToBarHandler:
     _fetch_people: Callable[[], IOResultE[List[Person]]]
     _send_invite: Callable[[Invite], IOResult[Invite, FailedInvite]]
 
     def __call__(
-        self, invitation_date: datetime
+        self, command: InviteAdultsToBar
     ) -> List[IOResult[Invite, FailedInvite]]:
-        build_bar_invite_ = partial(build_bar_invite, invitation_date)
+        build_bar_invite_ = partial(build_bar_invite, command.invitation_date)
         is_adult = lambda x: isinstance(x, Adult)
 
         people = self._fetch_people()

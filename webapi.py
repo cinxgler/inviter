@@ -1,6 +1,5 @@
 from datetime import date, datetime
 
-import di_containers
 from dependency_injector.wiring import Provide
 from flask import Flask
 from flask_restx import Api, Resource, fields
@@ -9,15 +8,8 @@ from returns.io import IOResult
 from returns.pipeline import is_successful
 from toolz.itertoolz import groupby
 
-from inviter.io import FailedInvite, Invite
-from inviter.repository import PersonRepository
 from inviter.usecase import InviteAdultsToBar
-
-person_repository: PersonRepository = Provide[di_containers.Repositories.Person]
-send_invite: IOResult[Invite, FailedInvite] = Provide[
-    di_containers.IoAdapters.send_invite
-]
-
+from usecases import bootstrap_usecase
 
 app = Flask(__name__)
 api = Api(app)
@@ -76,11 +68,9 @@ class InviteAdults(Resource):
         invitation_request = InvitationRequest(**api.payload)
         raw_invitation_datetime = f"{invitation_request.date} {invitation_request.hour}:{invitation_request.minute}"
         invitation_date = datetime.strptime(raw_invitation_datetime, "%Y-%m-%d %H:%M")
-
-        invite_adults = InviteAdultsToBar(
-            fetch_people=person_repository.fetch_people, send_invite=send_invite
-        )
-        send_invites_result = invite_adults(invitation_date)
+        command = InviteAdultsToBar(invitation_date=invitation_date)
+        command_handler = bootstrap_usecase(command)
+        send_invites_result = command_handler(command)
 
         result = {"success": 0, "failed": 0}
         result_by_success = groupby(is_successful, send_invites_result)

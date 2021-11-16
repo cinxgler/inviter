@@ -7,7 +7,7 @@ from returns.pipeline import is_successful
 from inviter.domain import build_person
 from inviter.io import FailedInvite, Invite, SendInviteErrorCodes
 from inviter.repository import PersonRepository
-from inviter.usecase import InviteAdultsToBar
+from inviter.usecase import InviteAdultsToBar, InviteAdultsToBarHandler
 
 
 class TestPersonRepository(PersonRepository):
@@ -61,10 +61,11 @@ def send_invite_with_error(invite: Invite) -> IOResult[Invite, FailedInvite]:
 def test_invite_adults_to_bar(
     repository_method, send_invite_function, expected_ok_count, expected_to_fail_count
 ):
-    invite_adults = InviteAdultsToBar(
+    invite_adults = InviteAdultsToBarHandler(
         fetch_people=repository_method, send_invite=send_invite_function
     )
-    send_invites_result = invite_adults(datetime(2021, 9, 15, 5, 45))
+    invite_command = InviteAdultsToBar(invitation_date=datetime(2021, 9, 15, 5, 45))
+    send_invites_result = invite_adults(invite_command)
     ok_cnt = 0
     failed_cnt = 0
     for result in send_invites_result:

@@ -9,3 +9,4 @@ dependency-injector
 toolz
 pytest
 pytest-cov
+classes

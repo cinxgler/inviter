@@ -1,25 +1,15 @@
 import cmd
 from datetime import datetime
 
-import di_containers
-from dependency_injector.wiring import Provide
-from returns.io import IOResult
 from returns.pipeline import is_successful
 from returns.result import safe
 from toolz.itertoolz import groupby
 
 import webapi
-from inviter.io import FailedInvite, Invite
-from inviter.repository import PersonRepository
 from inviter.usecase import InviteAdultsToBar
+from usecases import bootstrap_usecase
 
 DATE_FORMAT = "%Y-%m-%d %H:%M"
-
-# Dependency Injection
-person_repository: PersonRepository = Provide[di_containers.Repositories.Person]
-send_invite: IOResult[Invite, FailedInvite] = Provide[
-    di_containers.IoAdapters.send_invite
-]
 
 # Input Validator
 @safe
@@ -50,10 +40,10 @@ class CliApp(cmd.Cmd):
         if not is_successful(invitation_date):
             print(invitation_date.failure())
             return False
-        invite_adults = InviteAdultsToBar(
-            fetch_people=person_repository.fetch_people, send_invite=send_invite
-        )
-        send_invites_result = invite_adults(invitation_date.unwrap())
+
+        command = InviteAdultsToBar(invitation_date=invitation_date.unwrap())
+        command_handler = bootstrap_usecase(command)
+        send_invites_result = command_handler(command)
 
         result_by_success = groupby(is_successful, send_invites_result)
         for is_success, results in result_by_success.items():
@@ -67,11 +57,6 @@ class CliApp(cmd.Cmd):
 
 if __name__ == "__main__":
     import sys
-
-    repositories = di_containers.Repositories()
-    repositories.wire(modules=[sys.modules[__name__], webapi])
-    io_adapters = di_containers.IoAdapters()
-    io_adapters.wire(modules=[sys.modules[__name__], webapi])
 
     if len(sys.argv) > 1:
         CliApp().onecmd(" ".join(sys.argv[1:]))
