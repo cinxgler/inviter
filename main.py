@@ -62,8 +62,3 @@ if __name__ == "__main__":
         CliApp().onecmd(" ".join(sys.argv[1:]))
     else:
         CliApp().cmdloop()
-
-# for invite_result in send_invites_result:
-#     if not is_successful(invite_result):
-#         error = unsafe_perform_io(invite_result.failure())
-#         print(f"Could send invite '{error.invite.identifier}' due to '{error.error_code}'")
