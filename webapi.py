@@ -4,12 +4,12 @@ from dependency_injector.wiring import Provide
 from flask import Flask
 from flask_restx import Api, Resource, fields
 from pydantic import BaseModel, validator
-from returns.io import IOResult
 from returns.pipeline import is_successful
 from toolz.itertoolz import groupby
 
+from bootstrap import bootstrap
 from inviter.usecase import InviteAdultsToBar
-from usecases import bootstrap_usecase
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -68,9 +68,9 @@ class InviteAdults(Resource):
         invitation_request = InvitationRequest(**api.payload)
         raw_invitation_datetime = f"{invitation_request.date} {invitation_request.hour}:{invitation_request.minute}"
         invitation_date = datetime.strptime(raw_invitation_datetime, "%Y-%m-%d %H:%M")
+        command_bus = bootstrap()
         command = InviteAdultsToBar(invitation_date=invitation_date)
-        command_handler = bootstrap_usecase(command)
-        send_invites_result = command_handler(command)
+        send_invites_result = command_bus.handle(command)
 
         result = {"success": 0, "failed": 0}
         result_by_success = groupby(is_successful, send_invites_result)

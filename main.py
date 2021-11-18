@@ -6,8 +6,8 @@ from returns.result import safe
 from toolz.itertoolz import groupby
 
 import webapi
+from bootstrap import bootstrap
 from inviter.usecase import InviteAdultsToBar
-from usecases import bootstrap_usecase
 
 DATE_FORMAT = "%Y-%m-%d %H:%M"
 
@@ -41,9 +41,9 @@ class CliApp(cmd.Cmd):
             print(invitation_date.failure())
             return False
 
+        command_bus = bootstrap()
         command = InviteAdultsToBar(invitation_date=invitation_date.unwrap())
-        command_handler = bootstrap_usecase(command)
-        send_invites_result = command_handler(command)
+        send_invites_result = command_bus.handle(command)
 
         result_by_success = groupby(is_successful, send_invites_result)
         for is_success, results in result_by_success.items():
