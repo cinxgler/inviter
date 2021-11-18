@@ -25,7 +25,5 @@ def execute_invite_adult_to_bar(
 ) -> List[IOResult[Invite, FailedInvite]]:
     repo = di_containers.Repositories().Person()
     send_invite = di_containers.IoAdapters().send_invite()
-    handler = InviteAdultsToBarHandler(
-        fetch_people=repo.fetch_people, send_invite=send_invite
-    )
+    handler = InviteAdultsToBarHandler(fetch_people=repo.fetch_people, send_invite=send_invite)
     return handler(cmd)

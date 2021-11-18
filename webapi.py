@@ -10,7 +10,6 @@ from toolz.itertoolz import groupby
 from bootstrap import bootstrap
 from inviter.usecase import InviteAdultsToBar
 
-
 app = Flask(__name__)
 api = Api(app)
 
@@ -19,9 +18,7 @@ ns = api.namespace("invite", description="Send Invitations")
 invitation_request = api.model(
     "InvitationRequest",
     {
-        "date": fields.Date(
-            required=True, description="Invitation date in ISO format yyyy-mm-dd"
-        ),
+        "date": fields.Date(required=True, description="Invitation date in ISO format yyyy-mm-dd"),
         "hour": fields.Integer(required=True, description="Hour"),
         "minute": fields.Integer(required=True, description="Minute"),
     },
@@ -30,9 +27,7 @@ invitation_request = api.model(
 invitation_response = api.model(
     "InvitationResponse",
     {
-        "success": fields.Integer(
-            required=True, description="Total count of invitations sent successfully"
-        ),
+        "success": fields.Integer(required=True, description="Total count of invitations sent successfully"),
         "failed": fields.Integer(
             required=True,
             description="Total count of invitations that failed and weren't sent",

@@ -58,12 +58,8 @@ def send_invite_with_error(invite: Invite) -> IOResult[Invite, FailedInvite]:
         (person_repository.fetch_all_mix_adults_and_kids, send_invite_with_error, 0, 2),
     ],
 )
-def test_invite_adults_to_bar(
-    repository_method, send_invite_function, expected_ok_count, expected_to_fail_count
-):
-    invite_adults = InviteAdultsToBarHandler(
-        fetch_people=repository_method, send_invite=send_invite_function
-    )
+def test_invite_adults_to_bar(repository_method, send_invite_function, expected_ok_count, expected_to_fail_count):
+    invite_adults = InviteAdultsToBarHandler(fetch_people=repository_method, send_invite=send_invite_function)
     invite_command = InviteAdultsToBar(invitation_date=datetime(2021, 9, 15, 5, 45))
     send_invites_result = invite_adults(invite_command)
     ok_cnt = 0

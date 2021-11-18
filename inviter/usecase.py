@@ -42,9 +42,7 @@ class InviteAdultsToBarHandler:
     _fetch_people: Callable[[], IOResultE[List[Person]]]
     _send_invite: Callable[[Invite], IOResult[Invite, FailedInvite]]
 
-    def __call__(
-        self, command: InviteAdultsToBar
-    ) -> List[IOResult[Invite, FailedInvite]]:
+    def __call__(self, command: InviteAdultsToBar) -> List[IOResult[Invite, FailedInvite]]:
         build_bar_invite_ = partial(build_bar_invite, command.invitation_date)
         is_adult = lambda x: isinstance(x, Adult)
 
