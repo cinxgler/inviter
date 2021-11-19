@@ -53,6 +53,7 @@ class CliApp(cmd.Cmd):
             else:
                 msg = f"Failed Count: {count}"
             print(msg)
+        return True
 
 
 if __name__ == "__main__":

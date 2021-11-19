@@ -2,6 +2,7 @@ import logging
 import typing as t
 
 from pymessagebus._commandbus import CommandBus  # type: ignore
+from pymessagebus.api import CommandHandlerNotFound  # type: ignore
 from pymessagebus.middleware.logger import (  # type: ignore
     LoggingMiddlewareConfig,
     get_logger_middleware,

@@ -1,9 +1,8 @@
 from datetime import date, datetime
 
-from dependency_injector.wiring import Provide
-from flask import Flask
+from flask import Flask, abort
 from flask_restx import Api, Resource, fields
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, ValidationError, validator
 from returns.pipeline import is_successful
 from toolz.itertoolz import groupby
 
@@ -60,7 +59,10 @@ class InviteAdults(Resource):
     @ns.expect(invitation_request)
     @ns.marshal_with(invitation_response, code=200)
     def post(self):
-        invitation_request = InvitationRequest(**api.payload)
+        try:
+            invitation_request = InvitationRequest(**api.payload)
+        except ValidationError as e:
+            abort(400, str(e))
         raw_invitation_datetime = f"{invitation_request.date} {invitation_request.hour}:{invitation_request.minute}"
         invitation_date = datetime.strptime(raw_invitation_datetime, "%Y-%m-%d %H:%M")
         command_bus = bootstrap()
